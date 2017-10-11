@@ -1,1 +1,33 @@
 /* some styles */
+
+.bordered {
+	border: 2px solid black;
+}
+
+.dot_bordered {
+	border: 2px dotted red;
+}
+
+#chooser {
+	width: 19%;
+	height: 100%;
+	float: left;
+}
+
+#right_panel {
+	float: left;
+	width: 79%;
+	height: 100%;
+}
+
+#control_panel{
+	height: 4%;
+}
+
+#specific_contorls {
+	height: 4%;
+}
+
+#code_itself {
+	height: 91%;
+}
