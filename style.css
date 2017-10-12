@@ -49,8 +49,9 @@
 
 #line_numbers {
 	float: left;
-	width: 5%;
+	width: 2%;
 	height: 90.8%;
+	padding: 5 5 5 5;
 }
 
 .color_chooser{
