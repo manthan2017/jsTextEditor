@@ -15,7 +15,7 @@ $(function(){
 				current_user_snippets = result;
 				for (let i=0; i<result["snippet_number"]; i++){
 					//current_user_snippets_array.push(result["snippet"+ i]);
-					$('#chooser').append('<div class="mini_snippet bordered" id="snippet' + i +'">' + result["snippet"+ i + "_name"] + '<br>' + result["snippet"+ i + "_preview"] + '</div>');
+					$('#chooser').append('<div class="mini_snippet" id="snippet' + i +'">' + result["snippet"+ i + "_name"] + '<br>' + result["snippet"+ i + "_preview"] + '</div>');
 					$('#snippet'+i).on("click", function(){
 						$('#code_itself').html(result["snippet"+ i]);
 						current_snippet_number = i;
