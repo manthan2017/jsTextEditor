@@ -4,6 +4,7 @@ $(function(){
 	$('#code_itself').css("overflow-y", "auto");
 	$('#line_numbers').css("overflow-y", "auto");
 	$('#line_numbers').css("overflow-y", "hidden");
+	$('#line_numbers').css("overflow-x", "hidden");
 $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).scrollTop())});
 	
 	
