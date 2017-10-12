@@ -9,14 +9,14 @@
 }
 
 #chooser {
-	width: 19%;
+	width: 20%;
 	height: 100%;
 	float: left;
 }
 
 #right_panel {
 	float: left;
-	width: 79%;
+	width: 80%;
 	height: 100%;
 }
 
