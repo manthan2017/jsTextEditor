@@ -3,6 +3,8 @@ $(function(){
 //code goes here
 	$('#code_itself').css("overflow-y", "auto");
 	$('#line_numbers').css("overflow-y", "auto");
+$('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).scrollTop())});
+	
 	
 	//Snippets downloader
 	var current_user_snippets;
@@ -61,7 +63,7 @@ $(function(){
 	
 	var number_counter = 0;
 	var number_html = "";
-	for (i = 0; i < $('#line_numbers').height()/19; i++){
+	for (i = 0; i < $('#line_numbers').height()/15; i++){
 		number_html += number_counter+"<br>";
 		number_counter++;
 	}		
