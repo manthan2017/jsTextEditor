@@ -3,6 +3,7 @@ $(function(){
 //code goes here
 	$('#code_itself').css("overflow-y", "auto");
 	$('#line_numbers').css("overflow-y", "auto");
+	$('#line_numbers').css("overflow-y", "hidden");
 $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).scrollTop())});
 	
 	
@@ -63,7 +64,7 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 	
 	var number_counter = 0;
 	var number_html = "";
-	for (i = 0; i < $('#line_numbers').height(); i++){
+	for (i = 0; i < $('#line_numbers').height()/2; i++){
 		number_html += number_counter+"<br>";
 		number_counter++;
 	}		
