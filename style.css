@@ -39,5 +39,17 @@
 #line_numbers {
 	float: left;
 	width: 5%;
-	height: 91.1%;
+	height: 90.8%;
+}
+
+.color_chooser{
+	background-color: 66ccff;
+}
+
+.color_code{
+	background-color: 00ffcc;
+}
+
+.color_controles{
+	background-color: 9999ff;
 }
