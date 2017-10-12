@@ -31,3 +31,13 @@
 #code_itself {
 	height: 91%;
 }
+
+.controll_button {
+	height: 100%;
+}
+
+#line_numbers {
+	float: left;
+	width: 5%;
+	height: 100%;
+}
