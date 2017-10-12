@@ -11,5 +11,5 @@ $(function(){
 	$('#line_numbers').html(number_html);
 	
 	
-	var debug_code_snippet = 
+	//var debug_code_snippet = 
 });
