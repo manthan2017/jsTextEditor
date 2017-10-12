@@ -63,7 +63,7 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 	
 	var number_counter = 0;
 	var number_html = "";
-	for (i = 0; i < $('#line_numbers').height()/15; i++){
+	for (i = 0; i < $('#line_numbers').height(); i++){
 		number_html += number_counter+"<br>";
 		number_counter++;
 	}		
