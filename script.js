@@ -9,4 +9,7 @@ $(function(){
 		number_counter++;
 	}		
 	$('#line_numbers').html(number_html);
+	
+	
+	var debug_code_snippet = 
 });
