@@ -151,9 +151,9 @@ $(function(){
 		code_html=$('#code_itself').html();
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
-			if (code_html.slice(i,i+34) == '<span class="red" <span>let</span>'){
-				let left_side = code_html.substr(0,i-1);
-				let right_side = code_html.slice(i+34);
+			if (code_html.slice(i,i+28) == '<span class="red">let</span>'){
+				let left_side = code_html.substr(0,i);
+				let right_side = code_html.slice(i+28);
 				result = left_side + 'let' + right_side ;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
@@ -163,13 +163,17 @@ $(function(){
 	
 	//I know it pushes the curser to the beggining of the line, but it CAN'T BE FIXED! D:
 	//$('#code_itself').keyup(function(e){if (e.keyCode == 32){highlight_brackets();}});
+	var syntax_on = 0;
 	$('#syntax').on('click', function(){
-		highlight_brackets();
-		highlight_brackets();
-		highlight_functions();
-		highligh_let();
-		$('#syntax').on('click', function(){
+		if (syntax_on == 0){
+			highlight_brackets();
+			highlight_brackets();
+			highlight_functions();
+			highligh_let();
+			syntax_on++;
+		} else {		
 			highligh_off_let();
-		});
+			syntax_on--;
+		}
 	});
 });
