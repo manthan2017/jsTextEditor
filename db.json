@@ -1,7 +1,14 @@
 {
   "users": [
     {
-      "id": "user1"
+      "id": "user1",
+      "name": "somename"
+    },
+    {
+      "id": "user2",
+      "code": "LOTS_OF_LINES_OF_CODE",
+      "review": "200_SYMBOLS_OF_CODE",
+      "name": "NAME_OF_SNIPPET"
     }
   ]
 }

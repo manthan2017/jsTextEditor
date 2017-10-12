@@ -34,8 +34,8 @@ $(function(){
 		//var snip_prev = 'snippet'+current_snippet_number+'_preview'+" ";
 		//var snip_code = 'snippet'+current_snippet_number+" ";
 		var package_object = {};
-		package_object['snippet'+current_snippet_number+'_preview'+""] = $('#code_itself').html()+'';
-		package_object['snippet'+current_snippet_number+""] =$('#code_itself').html().slice(0,40)+''
+		package_object['snippet'+current_snippet_number+'_preview'+""] = $('#code_itself').html().slice(0,40)+'';
+		package_object['snippet'+current_snippet_number+""] =$('#code_itself').html()+'';
 		var json_package = JSON.stringify(package_object);
 		console.log(json_package);
 		$.ajax({
