@@ -65,7 +65,7 @@ $(function(){
 	$('#line_numbers').html(number_html);
 	
 	
-	var debug_code_snippet = "While true {   } do () someftuff blahblahblah {}";
+	var debug_code_snippet = "Choose a snippet from the left";
 	
 	$('#code_itself').html(debug_code_snippet); //this will be from database
 	
