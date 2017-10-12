@@ -108,3 +108,7 @@ input[type=text]:focus {
 .red {
 	color: red;
 }
+
+#syntax {
+	margin: 10px;
+}
