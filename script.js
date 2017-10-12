@@ -2,6 +2,7 @@ $(function(){
 	
 //code goes here
 	$('#code_itself').css("overflow-y", "auto");
+	$('#line_numbers').css("overflow-y", "auto");
 	
 	//Snippets downloader
 	var current_user_snippets;
