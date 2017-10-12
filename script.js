@@ -5,7 +5,7 @@ $(function(){
 	$('#line_numbers').css("overflow-y", "auto");
 	$('#line_numbers').css("overflow-y", "hidden");
 	$('#line_numbers').css("overflow-x", "hidden");
-$('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).scrollTop())});
+	$('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).scrollTop())});
 	
 	
 	//Snippets downloader
@@ -63,7 +63,7 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 	
 	
 	
-	var number_counter = 0;
+	var number_counter = 1;
 	var number_html = "";
 	for (i = 0; i < $('#line_numbers').height()/2; i++){
 		number_html += number_counter+"<br>";
@@ -76,6 +76,10 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 	
 	$('#code_itself').html(debug_code_snippet); 
 	
+	String.prototype.replaceAt=function(index, replacement){
+		return this.substr(0,index)+replacement+this.substring(index+replacement.lenght);
+	};
+	
 	var code_html;
 	
 	function highlight_brackets(){
@@ -84,18 +88,20 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
 			if (code_html[i] == "{"){  
-				let left_side = code_html.slice(0,i-1);
+				let left_side = code_html.slice(0,i);
 				let right_side = code_html.slice(i+1, code_html.length);
-				result = left_side + '<span class="red">{</span>' + right_side ;
+				result = left_side + ' <span class="red">{</span>' + right_side ;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
+				i+=26;
 			} 
 			if (code_html[i] == "}"){
-				let left_side = code_html.slice(0,i-1);
+				let left_side = code_html.slice(0,i);
 				let right_side = code_html.slice(i+1, code_html.length);
 				result = left_side + '<span class="red">}</span>' + right_side ;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
+				i+=26;
 			}
 		}
 		
@@ -108,11 +114,12 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
 			if (code_html.slice(i,i+8) == "function"){  
-				let left_side = code_html.slice(0,i-1);
+				let left_side = code_html.slice(0,i);
 				let right_side = code_html.slice(i+8, code_html.length);
 				result = left_side + '<span class="red">function</span>' + right_side ;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
+				i+=32;
 			}
 		}
 	}
@@ -122,17 +129,47 @@ $('#code_itself').on("scroll", function(){$('#line_numbers').scrollTop($(this).s
 		code_html=$('#code_itself').html();
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
-			if (code_html.slice(i,i+3) == "function"){  
+			if (code_html.slice(i,i+3) == "let"){  /*
 				let left_side = code_html.slice(0,i-1);
-				let right_side = code_html.slice(i+8, code_html.length);
-				result = left_side + '<span class="red">function</span>' + right_side ;
+				let right_side = code_html.slice(i+3, code_html.length);
+				result = left_side + '<span class="red">let</span>' + right_side ;
+				$('#code_itself').html(result);
+				code_html=$('#code_itself').html();
+				*/
+				let left_side = code_html.substr(0,i);
+				let right_side = code_html.slice(i+3);
+				result = left_side + '<span class="red">let</span>' + right_side ;
+				$('#code_itself').html(result);
+				code_html=$('#code_itself').html();
+				i+=28;
+			}
+		}
+	};
+	
+	function highligh_off_let(){
+		let result;
+		code_html=$('#code_itself').html();
+		result=code_html;
+		for (let i=0; i<code_html.length; i++){
+			if (code_html.slice(i,i+34) == '<span class="red" <span>let</span>'){
+				let left_side = code_html.substr(0,i-1);
+				let right_side = code_html.slice(i+34);
+				result = left_side + 'let' + right_side ;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
 			}
 		}
-	}
+	};
 	
 	//I know it pushes the curser to the beggining of the line, but it CAN'T BE FIXED! D:
 	//$('#code_itself').keyup(function(e){if (e.keyCode == 32){highlight_brackets();}});
-	$('#syntax').on('click', function(){highlight_brackets();highlight_brackets();highlight_functions()});
+	$('#syntax').on('click', function(){
+		highlight_brackets();
+		highlight_brackets();
+		highlight_functions();
+		highligh_let();
+		$('#syntax').on('click', function(){
+			highligh_off_let();
+		});
+	});
 });
