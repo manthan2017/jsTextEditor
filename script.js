@@ -75,13 +75,9 @@ $(function(){
 	var debug_code_snippet = "Choose a snippet from the left";
 	
 	$('#code_itself').html(debug_code_snippet); 
-	
-	String.prototype.replaceAt=function(index, replacement){
-		return this.substr(0,index)+replacement+this.substring(index+replacement.lenght);
-	};
-	
-	var code_html;
-	
+
+	var code_html=$('#code_itself').html();
+	/*
 	function highlight_brackets(){
 		let result;
 		code_html=$('#code_itself').html();
@@ -124,29 +120,42 @@ $(function(){
 		}
 	}
 	
-	function highligh_let(){
+	function highlight_let(){
 		let result;
 		code_html=$('#code_itself').html();
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
-			if (code_html.slice(i,i+3) == "let"){  /*
-				let left_side = code_html.slice(0,i-1);
-				let right_side = code_html.slice(i+3, code_html.length);
-				result = left_side + '<span class="red">let</span>' + right_side ;
-				$('#code_itself').html(result);
-				code_html=$('#code_itself').html();
-				*/
+			if (code_html.slice(i,i+3) == "let"){ 
 				let left_side = code_html.substr(0,i);
 				let right_side = code_html.slice(i+3);
-				result = left_side + '<span class="red">let</span>' + right_side ;
+				result = left_side + '<span class="red">let</span>' + right_side;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
 				i+=28;
 			}
 		}
 	};
+	*/
 	
-	function highligh_off_let(){
+	function highlight_string(str){
+		let result;
+		code_html=$('#code_itself').html();
+		result = code_html;
+		for (let i = 0; i<code_html.length; i++){
+			if (code_html.slice(i,i+str.length) == str){
+				let left_side = code_html.substr(0,i);
+				let right_side = code_html.slice(i+str.length);
+				result = left_side + '<span class="red">' + str + '</span>' + right_side;
+				$('#code_itself').html(result);
+				code_html=$('#code_itself').html();
+				//console.log(('<span class="red">' + str + '</span>').length);
+				i+=('<span class="red">' + str + '</span>').length;
+			}
+		}
+	};
+	
+	/*
+	function highlight_off_let(){
 		let result;
 		code_html=$('#code_itself').html();
 		result=code_html;
@@ -161,18 +170,80 @@ $(function(){
 		}
 	};
 	
+	function highlight_off_function(){
+		let result;
+		code_html=$('#code_itself').html();
+		result=code_html;
+		for (let i=0; i<code_html.length; i++){
+			if (code_html.slice(i,i+33) == '<span class="red">function</span>'){
+				let left_side = code_html.substr(0,i);
+				let right_side = code_html.slice(i+33);
+				result = left_side + 'function' + right_side ;
+				$('#code_itself').html(result);
+				code_html=$('#code_itself').html();
+			}
+		}
+	};
+	
+	function highlight_off_brackets(){
+		let result;
+		code_html=$('#code_itself').html();
+		result=code_html;
+		for (let i=0; i<code_html.length; i++){
+			if (code_html.slice(i,i+28) == '<span class="red">let</span>'){
+				let left_side = code_html.substr(0,i);
+				let right_side = code_html.slice(i+28);
+				result = left_side + 'let' + right_side ;
+				$('#code_itself').html(result);
+				code_html=$('#code_itself').html();
+			}
+		}
+	};
+	*/
+	
+	function highlight_off_string(str,str_class){
+		let result;
+		code_html=$('#code_itself').html();
+		result=code_html;
+		for (let i=0; i<code_html.length; i++){
+			if (code_html.slice(i,i+22+str_class.length+str.length) == ('<span class="'+str_class+'">'+str+'</span>')){
+				let left_side = code_html.substr(0,i);
+				let right_side = code_html.slice(i+22+str_class.length+str.length);
+				result = left_side + str + right_side ;
+				$('#code_itself').html(result);
+				code_html=$('#code_itself').html();
+			}
+		}
+	}
+	
+		
+	
 	//I know it pushes the curser to the beggining of the line, but it CAN'T BE FIXED! D:
 	//$('#code_itself').keyup(function(e){if (e.keyCode == 32){highlight_brackets();}});
 	var syntax_on = 0;
 	$('#syntax').on('click', function(){
 		if (syntax_on == 0){
+			/*
 			highlight_brackets();
 			highlight_brackets();
 			highlight_functions();
-			highligh_let();
+			highlight_let();
+			*/
+			highlight_string("let");
+			highlight_string("function");
+			highlight_string("{");
+			highlight_string("}");
 			syntax_on++;
 		} else {		
-			highligh_off_let();
+		/*
+			highlight_off_let();
+			highlight_off_function();
+			//highlight_brackets();
+			*/
+			highlight_off_string("let","red");
+			highlight_off_string("function","red");
+			highlight_off_string("}","red");
+			highlight_off_string("{","red");
 			syntax_on--;
 		}
 	});
