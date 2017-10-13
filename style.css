@@ -42,7 +42,8 @@ body{
 }
 
 #code_itself {
-	height: 92%;
+	height: 90.5%;
+	overflow: hidden;
 	padding: 5 5 5 5;
 }
 
@@ -159,4 +160,11 @@ input[type=text]:focus {
 
 #save {
 	margin: 5 5 5 5;
+}
+
+#snippet_name {
+	background: white;
+	padding: 5 5 5 5;
+	border-radius: 5px;
+	margin-top: 10px;
 }
