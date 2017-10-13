@@ -9,8 +9,9 @@ $(function(){
 	
 	
 	//Snippets downloader
-	var current_user_snippets;
+	var snippets_from_server;
 	var current_snippet_number;
+	var snippet_is_new = false;
 	function chooser_reload(){
 		$.ajax({
 			url: 'http://proj-319-p11.cs.iastate.edu:3000/users/' + 'user1',
@@ -19,12 +20,14 @@ $(function(){
 			cache: false,
 			success: function(result){
 				$('#chooser').html("");
-				current_user_snippets = result;
+				snippets_from_server = result;
+				console.log(snippets_from_server);
 				for (let i=0; i<result["snippet_number"]; i++){
 					//current_user_snippets_array.push(result["snippet"+ i]);
 					$('#chooser').append('<div class="mini_snippet" id="snippet' + i +'">' + result["snippet"+ i + "_name"] + '<br>' + result["snippet"+ i + "_preview"] + '</div>');
 					$('#snippet'+i).on("click", function(){
 						$('#code_itself').html(result["snippet"+ i]);
+						$('#snippet_name').html(result["snippet"+ i+"_name"]);
 						current_snippet_number = i;
 					});	
 				}
@@ -38,29 +41,67 @@ $(function(){
 				
 	//Saving snipepts
 	$('#save').on('click', function(){
-		//var snip_prev = 'snippet'+current_snippet_number+'_preview'+" ";
-		//var snip_code = 'snippet'+current_snippet_number+" ";
-		var package_object = {};
-		package_object['snippet'+current_snippet_number+'_preview'+""] = $('#code_itself').html().slice(0,100)+'';
-		package_object['snippet'+current_snippet_number+""] =$('#code_itself').html()+'';
-		var json_package = JSON.stringify(package_object);
-		console.log(json_package);
-		$.ajax({
-			url: 'http://proj-319-p11.cs.iastate.edu:3000/users/' + 'user1',
-			type: 'PATCH',
-			contentType: "application/json",
-			cache: false,
-			beforeSend: function(){
-				console.log(json_package);
-			},
-			data: json_package,
-			success: function(result){
-				console.log("saved");
-				chooser_reload();
-			}
-		});
+		if (snippet_is_new == false){
+			var package_object = {};
+			package_object['snippet'+current_snippet_number+'_preview'+""] = $('#code_itself').html().slice(0,100)+'';
+			package_object['snippet'+current_snippet_number+""] =$('#code_itself').html()+'';
+			package_object['snippet'+current_snippet_number+'_name'] =$('#snippet_name').html()+'';
+			var json_package = JSON.stringify(package_object);
+			console.log(json_package);
+			$.ajax({
+				url: 'http://proj-319-p11.cs.iastate.edu:3000/users/' + 'user1',
+				type: 'PATCH',
+				contentType: "application/json",
+				cache: false,
+				beforeSend: function(){
+					console.log(json_package);
+				},
+				data: json_package,
+				success: function(result){
+					console.log("saved");
+					chooser_reload();
+				}
+			});
+		} else {
+			current_snippet_number=snippets_from_server['snippet_number'];
+			snippets_from_server['snippet'+current_snippet_number+'_preview'+""] = $('#code_itself').html().slice(0,100)+'';
+			snippets_from_server['snippet'+current_snippet_number+""] =$('#code_itself').html()+'';
+			snippets_from_server['snippet'+current_snippet_number+'_name'] =$('#snippet_name').html()+'';
+			snippets_from_server['snippet_number'] =current_snippet_number+1;
+			var json_package = JSON.stringify(snippets_from_server);
+			console.log(json_package);
+			$.ajax({
+				url: 'http://proj-319-p11.cs.iastate.edu:3000/users/' + 'user1',
+				type: 'DELETE',
+				contentType: "application/json",
+				cache: false,
+				data: json_package,
+				success: function(){
+					$.ajax({
+						url: 'http://proj-319-p11.cs.iastate.edu:3000/users/',
+						type: 'POST',
+						contentType: "application/json",
+						cache: false,
+						data: json_package,
+						success: function(){
+							chooser_reload();
+							alert("Saved!");
+						}
+					});
+				}
+			});
+			snippet_is_new = false;
+		}
 	});
 	
+
+		
+	//creating new snippet
+	$('#new').on('click', function(){
+		snippet_is_new = true;
+		$('#code_itself').html('');
+		$('#snippet_name').html("NewSnippet"+snippets_from_server["snippet_number"]+1);
+	});
 	
 	
 	var number_counter = 1;
@@ -247,4 +288,6 @@ $(function(){
 			syntax_on--;
 		}
 	});
+	
+	
 });
