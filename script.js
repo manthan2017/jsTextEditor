@@ -259,6 +259,9 @@ $(function(){
 	
 	var current_language = 'PHP';
 	var syntax_on = 0;
+	
+	$('#color_chooser').on('click', function(){syntax_on=0});
+	
 	$('#syntax').on('click', function(){
 		if (current_language == 'JavaScript'){
 			if (syntax_on == 0){
