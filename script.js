@@ -21,7 +21,6 @@ $(function(){
 			success: function(result){
 				$('#chooser').html("");
 				snippets_from_server = result;
-				console.log(snippets_from_server);
 				for (let i=0; i<result["snippet_number"]; i++){
 					//current_user_snippets_array.push(result["snippet"+ i]);
 					$('#chooser').append('<div class="mini_snippet" id="snippet' + i +'">' + result["snippet"+ i + "_name"] + '<br>' + result["snippet"+ i + "_preview"] + '</div>');
@@ -29,6 +28,7 @@ $(function(){
 						$('#code_itself').html(result["snippet"+ i]);
 						$('#snippet_name').html(result["snippet"+ i+"_name"]);
 						current_snippet_number = i;
+						syntax_on = 0;
 					});	
 				}
 			}
@@ -261,8 +261,6 @@ $(function(){
 	
 	var current_language = 'PHP';
 	var syntax_on = 0;
-	
-	$('#color_chooser').on('click', function(){syntax_on=0});
 	
 	$('#syntax').on('click', function(){
 		if (current_language == 'JavaScript'){
