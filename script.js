@@ -180,13 +180,15 @@ $(function(){
 		result = code_html;
 		for (let i = 0; i<code_html.length; i++){
 			if (code_html.slice(i,i+str.length) == str){
-				let left_side = code_html.slice(0,i);
-				let right_side = code_html.slice(i+str.length);
-				result = left_side + '<span class="'+str_class+'">' + str + '</span>' + right_side;
-				$('#code_itself').html(result);
-				code_html=$('#code_itself').html();
-				//console.log(('<span class="red">' + str + '</span>').length);
-				i+=('<span class="red">' + str + '</span>').length;
+				if ((code_html[i+str.length]==" ")||(code_html[i+str.length]==".")){
+					let left_side = code_html.slice(0,i);
+					let right_side = code_html.slice(i+str.length);
+					result = left_side + '<span class="'+str_class+'">' + str + '</span>' + right_side;
+					$('#code_itself').html(result);
+					code_html=$('#code_itself').html();
+					//console.log(('<span class="red">' + str + '</span>').length);
+					i+=('<span class="red">' + str + '</span>').length;
+				} 
 			}
 		}
 	};
