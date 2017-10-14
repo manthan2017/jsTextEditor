@@ -364,7 +364,6 @@ $(function(){
 				highlight_string("abstract","red");
 				highlight_string("callable","red");
 				highlight_string("const","red");
-				highlight_string("do","red");
 				highlight_string("enddeclare","red");
 				highlight_string("endwhile","red");
 				highlight_string("finally","red");
@@ -397,11 +396,9 @@ $(function(){
 				highlight_string("foreach","red");
 				highlight_string("implements","red");
 				highlight_string("interface","red");
-				highlight_string("or","red");
 				highlight_string("require","red");
 				highlight_string("throw","red");
 				highlight_string("var","red");
-				highlight_string("as","red");
 				highlight_string("default","red");
 				highlight_string("elseif","red");
 				highlight_string("endif","red");
@@ -433,7 +430,6 @@ $(function(){
 				highlight_off_string("abstract","red");
 				highlight_off_string("callable","red");
 				highlight_off_string("const","red");
-				highlight_off_string("do","red");
 				highlight_off_string("enddeclare","red");
 				highlight_off_string("endwhile","red");
 				highlight_off_string("finally","red");
@@ -466,7 +462,6 @@ $(function(){
 				highlight_off_string("foreach","red");
 				highlight_off_string("implements","red");
 				highlight_off_string("interface","red");
-				highlight_off_string("or","red");
 				highlight_off_string("require","red");
 				highlight_off_string("throw","red");
 				highlight_off_string("var","red");
