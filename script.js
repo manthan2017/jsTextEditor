@@ -257,7 +257,7 @@ $(function(){
 	
 
 	
-	var current_language = 'JavaScript';
+	var current_language = 'PHP';
 	var syntax_on = 0;
 	$('#syntax').on('click', function(){
 		if (current_language == 'JavaScript'){
@@ -268,6 +268,24 @@ $(function(){
 				highlight_functions();
 				highlight_let();
 				*/
+				highlight_string("abstract","red");
+				highlight_string("break","red");
+				highlight_string("char","red");
+				highlight_string("document","red");
+				highlight_string("{","red");
+				highlight_string("}","red");
+				highlight_string("let","red");
+				highlight_string("function","red");
+				highlight_string("this","red");
+				highlight_string("document","red");
+				highlight_string("{","red");
+				highlight_string("}","red");
+				highlight_string("let","red");
+				highlight_string("function","red");
+				highlight_string("this","red");
+				highlight_string("document","red");
+				highlight_string("{","red");
+				highlight_string("}","red");
 				highlight_string("let","red");
 				highlight_string("function","red");
 				highlight_string("this","red");
