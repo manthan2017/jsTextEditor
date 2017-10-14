@@ -69,7 +69,6 @@ $(function(){
 			snippets_from_server['snippet'+current_snippet_number+'_name'] =$('#snippet_name').html()+'';
 			snippets_from_server['snippet_number'] =current_snippet_number+1;
 			var json_package = JSON.stringify(snippets_from_server);
-			console.log(json_package);
 			$.ajax({
 				url: 'http://proj-319-p11.cs.iastate.edu:3000/users/' + 'user1',
 				type: 'DELETE',
@@ -100,7 +99,7 @@ $(function(){
 	$('#new').on('click', function(){
 		snippet_is_new = true;
 		$('#code_itself').html('');
-		$('#snippet_name').html("NewSnippet"+snippets_from_server["snippet_number"]+1);
+		$('#snippet_name').html("NewSnippet"+(snippets_from_server["snippet_number"]+1));
 	});
 	
 	
@@ -178,15 +177,15 @@ $(function(){
 	};
 	*/
 	
-	function highlight_string(str){
+	function highlight_string(str,str_class){
 		let result;
 		code_html=$('#code_itself').html();
 		result = code_html;
 		for (let i = 0; i<code_html.length; i++){
 			if (code_html.slice(i,i+str.length) == str){
-				let left_side = code_html.substr(0,i);
+				let left_side = code_html.slice(0,i);
 				let right_side = code_html.slice(i+str.length);
-				result = left_side + '<span class="red">' + str + '</span>' + right_side;
+				result = left_side + '<span class="'+str_class+'">' + str + '</span>' + right_side;
 				$('#code_itself').html(result);
 				code_html=$('#code_itself').html();
 				//console.log(('<span class="red">' + str + '</span>').length);
@@ -248,7 +247,8 @@ $(function(){
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
 			if (code_html.slice(i,i+22+str_class.length+str.length) == ('<span class="'+str_class+'">'+str+'</span>')){
-				let left_side = code_html.substr(0,i);
+				console.log(code_html.slice(i,i+22+str_class.length+str.length)+":"+('<span class="'+str_class+'">'+str+'</span>'));
+				let left_side = code_html.slice(0,i);
 				let right_side = code_html.slice(i+22+str_class.length+str.length);
 				result = left_side + str + right_side ;
 				$('#code_itself').html(result);
@@ -259,35 +259,70 @@ $(function(){
 	
 		
 	
-	//I know it pushes the curser to the beggining of the line, but it CAN'T BE FIXED! D:
-	//$('#code_itself').keyup(function(e){if (e.keyCode == 32){highlight_brackets();}});
+
+	
+	var current_language = 'JavaScript';
 	var syntax_on = 0;
 	$('#syntax').on('click', function(){
-		if (syntax_on == 0){
-			/*
-			highlight_brackets();
-			highlight_brackets();
-			highlight_functions();
-			highlight_let();
-			*/
-			highlight_string("let");
-			highlight_string("function");
-			highlight_string("{");
-			highlight_string("}");
-			syntax_on++;
-		} else {		
-		/*
-			highlight_off_let();
-			highlight_off_function();
-			//highlight_brackets();
-			*/
-			highlight_off_string("let","red");
-			highlight_off_string("function","red");
-			highlight_off_string("}","red");
-			highlight_off_string("{","red");
-			syntax_on--;
+		if (current_language == 'JavaScript'){
+			if (syntax_on == 0){
+				/*
+				highlight_brackets();
+				highlight_brackets();
+				highlight_functions();
+				highlight_let();
+				*/
+				highlight_string("let","red");
+				highlight_string("function","red");
+				highlight_string("{","red");
+				highlight_string("}","red");
+				syntax_on++;
+			} else {		
+				/*
+				highlight_off_let();
+				highlight_off_function();
+				//highlight_brackets();
+				*/
+				highlight_off_string("let","red");
+				highlight_off_string("function","red");
+				highlight_off_string("}","red");
+				highlight_off_string("{","red");
+				syntax_on--;
+			}
+		} else if (current_language == 'Java'){
+			if (syntax_on == 0){
+				highlight_string("public","red");
+				highlight_string("static","red");
+				highlight_string("void","red");
+				highlight_string("int","red");
+				highlight_string("String","red");
+				highlight_string("new","red");
+				highlight_string("out","red");
+				highlight_string("try","red");
+				highlight_string("catch","red");
+				highlight_string("if","grn");
+				highlight_string("while","grn");
+				syntax_on++;
+			} else {
+				highlight_off_string("public","red");
+				highlight_off_string("static","red");
+				highlight_off_string("void","red");
+				highlight_off_string("int","red");
+				highlight_off_string("String","red");
+				highlight_off_string("new","red");
+				highlight_off_string("out","red");
+				highlight_off_string("try","red");
+				highlight_off_string("catch","red");
+				highlight_off_string("if","grn");
+				highlight_off_string("while","grn");
+				syntax_on--;
+			}
+			
 		}
 	});
 	
+	$(document).on('change', '#select_language', function(e) {
+		current_language = this.options[e.target.selectedIndex].text;
+	});
 	
 });
