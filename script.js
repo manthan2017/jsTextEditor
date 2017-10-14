@@ -47,7 +47,6 @@ $(function(){
 			package_object['snippet'+current_snippet_number+""] =$('#code_itself').html()+'';
 			package_object['snippet'+current_snippet_number+'_name'] =$('#snippet_name').html()+'';
 			var json_package = JSON.stringify(package_object);
-			console.log(json_package);
 			$.ajax({
 				url: 'http://proj-319-p11.cs.iastate.edu:3000/users/' + 'user1',
 				type: 'PATCH',
@@ -58,7 +57,6 @@ $(function(){
 				},
 				data: json_package,
 				success: function(result){
-					console.log("saved");
 					chooser_reload();
 				}
 			});
@@ -84,7 +82,6 @@ $(function(){
 						data: json_package,
 						success: function(){
 							chooser_reload();
-							alert("Saved!");
 						}
 					});
 				}
@@ -247,7 +244,6 @@ $(function(){
 		result=code_html;
 		for (let i=0; i<code_html.length; i++){
 			if (code_html.slice(i,i+22+str_class.length+str.length) == ('<span class="'+str_class+'">'+str+'</span>')){
-				console.log(code_html.slice(i,i+22+str_class.length+str.length)+":"+('<span class="'+str_class+'">'+str+'</span>'));
 				let left_side = code_html.slice(0,i);
 				let right_side = code_html.slice(i+22+str_class.length+str.length);
 				result = left_side + str + right_side ;
@@ -274,6 +270,8 @@ $(function(){
 				*/
 				highlight_string("let","red");
 				highlight_string("function","red");
+				highlight_string("this","red");
+				highlight_string("document","red");
 				highlight_string("{","red");
 				highlight_string("}","red");
 				syntax_on++;
@@ -285,6 +283,8 @@ $(function(){
 				*/
 				highlight_off_string("let","red");
 				highlight_off_string("function","red");
+				highlight_off_string("this","red");
+				highlight_off_string("document","red");
 				highlight_off_string("}","red");
 				highlight_off_string("{","red");
 				syntax_on--;
@@ -300,8 +300,12 @@ $(function(){
 				highlight_string("out","red");
 				highlight_string("try","red");
 				highlight_string("catch","red");
+				highlight_string("throws","red");
+				highlight_string("true","red");
+				highlight_string("false","red");
 				highlight_string("if","grn");
 				highlight_string("while","grn");
+				highlight_string("for","grn");
 				syntax_on++;
 			} else {
 				highlight_off_string("public","red");
@@ -313,12 +317,157 @@ $(function(){
 				highlight_off_string("out","red");
 				highlight_off_string("try","red");
 				highlight_off_string("catch","red");
+				highlight_off_string("throws","red");
+				highlight_off_string("true","red");
+				highlight_off_string("false","red");
 				highlight_off_string("if","grn");
 				highlight_off_string("while","grn");
+				highlight_off_string("for","grn");
 				syntax_on--;
 			}
 			
-		}
+		} else if (current_language == 'PHP'){
+			if (syntax_on == 0){
+				highlight_string("<?php","red");
+				highlight_string("echo","red");
+				highlight_string("break","red");
+				highlight_string("clone","red");
+				highlight_string("die","red");
+				highlight_string("empty","red");
+				highlight_string("endswitch","red");
+				highlight_string("final","red");
+				highlight_string("global","red");
+				highlight_string("include_once","red");
+				highlight_string("list","red");
+				highlight_string("private","red");
+				highlight_string("return","red");
+				highlight_string("try","red");
+				highlight_string("xor","red");
+				highlight_string("abstract","red");
+				highlight_string("callable","red");
+				highlight_string("const","red");
+				highlight_string("do","red");
+				highlight_string("enddeclare","red");
+				highlight_string("endwhile","red");
+				highlight_string("finally","red");
+				highlight_string("goto","red");
+				highlight_string("instanceof","red");
+				highlight_string("namespace","red");
+				highlight_string("protected","red");
+				highlight_string("static","red");
+				highlight_string("unset","red");
+				highlight_string("yield","red");
+				highlight_string("and","red");
+				highlight_string("case","red");
+				highlight_string("continue","red");
+				highlight_string("echo","red");
+				highlight_string("endfor","red");
+				highlight_string("eval","red");
+				highlight_string("for","red");
+				highlight_string("if","red");
+				highlight_string("insteadof","red");
+				highlight_string("new","red");
+				highlight_string("public","red");
+				highlight_string("switch","red");
+				highlight_string("use","red");
+				highlight_string("array()","red");
+				highlight_string("catch","red");
+				highlight_string("declare","red");
+				highlight_string("else","red");
+				highlight_string("endforeach","red");
+				highlight_string("exit","red");
+				highlight_string("foreach","red");
+				highlight_string("implements","red");
+				highlight_string("interface","red");
+				highlight_string("or","red");
+				highlight_string("require","red");
+				highlight_string("throw","red");
+				highlight_string("var","red");
+				highlight_string("as","red");
+				highlight_string("default","red");
+				highlight_string("elseif","red");
+				highlight_string("endif","red");
+				highlight_string("extends","red");
+				highlight_string("function","red");
+				highlight_string("include","red");
+				highlight_string("isset","red");
+				highlight_string("print","red");
+				highlight_string("require_once","red");
+				highlight_string("trait","red");
+				highlight_string("while","red");
+				syntax_on++;
+			} else {
+				highlight_off_string("<?php","red");
+				highlight_off_string("echo","red");
+				highlight_off_string("break","red");
+				highlight_off_string("clone","red");
+				highlight_off_string("die","red");
+				highlight_off_string("empty","red");
+				highlight_off_string("endswitch","red");
+				highlight_off_string("final","red");
+				highlight_off_string("global","red");
+				highlight_off_string("include_once","red");
+				highlight_off_string("list","red");
+				highlight_off_string("private","red");
+				highlight_off_string("return","red");
+				highlight_off_string("try","red");
+				highlight_off_string("xor","red");
+				highlight_off_string("abstract","red");
+				highlight_off_string("callable","red");
+				highlight_off_string("const","red");
+				highlight_off_string("do","red");
+				highlight_off_string("enddeclare","red");
+				highlight_off_string("endwhile","red");
+				highlight_off_string("finally","red");
+				highlight_off_string("goto","red");
+				highlight_off_string("instanceof","red");
+				highlight_off_string("namespace","red");
+				highlight_off_string("protected","red");
+				highlight_off_string("static","red");
+				highlight_off_string("unset","red");
+				highlight_off_string("yield","red");
+				highlight_off_string("and","red");
+				highlight_off_string("case","red");
+				highlight_off_string("continue","red");
+				highlight_off_string("echo","red");
+				highlight_off_string("endfor","red");
+				highlight_off_string("eval","red");
+				highlight_off_string("for","red");
+				highlight_off_string("if","red");
+				highlight_off_string("insteadof","red");
+				highlight_off_string("new","red");
+				highlight_off_string("public","red");
+				highlight_off_string("switch","red");
+				highlight_off_string("use","red");
+				highlight_off_string("array()","red");
+				highlight_off_string("catch","red");
+				highlight_off_string("declare","red");
+				highlight_off_string("else","red");
+				highlight_off_string("endforeach","red");
+				highlight_off_string("exit","red");
+				highlight_off_string("foreach","red");
+				highlight_off_string("implements","red");
+				highlight_off_string("interface","red");
+				highlight_off_string("or","red");
+				highlight_off_string("require","red");
+				highlight_off_string("throw","red");
+				highlight_off_string("var","red");
+				highlight_off_string("as","red");
+				highlight_off_string("default","red");
+				highlight_off_string("elseif","red");
+				highlight_off_string("endif","red");
+				highlight_off_string("extends","red");
+				highlight_off_string("function","red");
+				highlight_off_string("include","red");
+				highlight_off_string("isset","red");
+				highlight_off_string("print","red");
+				highlight_off_string("require_once","red");
+				highlight_off_string("trait","red");
+				highlight_off_string("while","red");
+				syntax_on--;
+			}
+			
+		} 
 	});
 	
 	$(document).on('change', '#select_language', function(e) {
