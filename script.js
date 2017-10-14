@@ -53,7 +53,6 @@ $(function(){
 				contentType: "application/json",
 				cache: false,
 				beforeSend: function(){
-					console.log(json_package);
 				},
 				data: json_package,
 				success: function(result){
