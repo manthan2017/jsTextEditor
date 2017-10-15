@@ -22,7 +22,6 @@ $(function(){
 				$('#chooser').html("");
 				snippets_from_server = result;
 				for (let i=0; i<result["snippet_number"]; i++){
-					//current_user_snippets_array.push(result["snippet"+ i]);
 					$('#chooser').append('<div class="mini_snippet" id="snippet' + i +'">' + result["snippet"+ i + "_name"] + '<br>' + result["snippet"+ i + "_preview"] + '</div>');
 					$('#snippet'+i).on("click", function(){
 						$('#code_itself').html(result["snippet"+ i]);
@@ -113,6 +112,7 @@ $(function(){
 	$('#code_itself').html(debug_code_snippet); 
 
 	var code_html=$('#code_itself').html();
+	
 	/*
 	function highlight_brackets(){
 		let result;
@@ -185,7 +185,6 @@ $(function(){
 					result = left_side + '<span class="'+str_class+'">' + str + '</span>' + right_side;
 					$('#code_itself').html(result);
 					code_html=$('#code_itself').html();
-					//console.log(('<span class="red">' + str + '</span>').length);
 					i+=('<span class="red">' + str + '</span>').length;
 				} 
 			}
@@ -529,7 +528,6 @@ $(function(){
 				highlight_string("endfor","grn");
 				highlight_string("eval","red");
 				highlight_string("for","grn");
-				highlight_string("if","red");
 				highlight_string("insteadof","red");
 				highlight_string("new","red");
 				highlight_string("public","red");
@@ -594,7 +592,6 @@ $(function(){
 				highlight_off_string("endfor","grn");
 				highlight_off_string("eval","red");
 				highlight_off_string("for","grn");
-				highlight_off_string("if","red");
 				highlight_off_string("insteadof","red");
 				highlight_off_string("new","red");
 				highlight_off_string("public","red");
